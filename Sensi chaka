@@ -1,0 +1,34 @@
+
+-- SENSI CHACA VIP
+-- FILTRO DE EQUIPOS
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local function EsEnemigo(target)
+    if not target or target == LocalPlayer then
+        return false
+    end
+
+    -- Ignorar jugadores sin equipo definido
+    if not LocalPlayer.Team or not target.Team then
+        return false
+    end
+
+    -- Solo seleccionar equipos contrarios
+    return LocalPlayer.Team ~= target.Team
+end
+
+local function ObtenerEnemigos()
+    local enemigos = {}
+
+    for _, target in ipairs(Players:GetPlayers()) do
+        if EsEnemigo(target) then
+            table.insert(enemigos, target)
+        end
+    end
+
+    return enemigos
+end
+
+print("SENSI CHACA VIP: filtro de enemigos activado")
